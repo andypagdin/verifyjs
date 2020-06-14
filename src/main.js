@@ -28,12 +28,8 @@ const getPossibleMoves = (position, destination, tiles) => {
   if (position[1] === tiles[0].length - 2) return [[position[0], 5]]
 
   let right = tiles[position[0]][position[1] + 1]
-  let up = tiles[position[0] - 1]
-    ? tiles[position[0] - 1][position[1]]
-    : undefined
-  let down = tiles[position[0] + 1]
-    ? tiles[position[0] + 1][position[1]]
-    : undefined
+  let up = tiles[position[0] - 1] ? tiles[position[0] - 1][position[1]] : undefined
+  let down = tiles[position[0] + 1] ? tiles[position[0] + 1][position[1]] : undefined
 
   let moves = []
 
@@ -118,7 +114,7 @@ const generatePath = () => {
     // Update tile
     tiles[position[0]][position[1]] = tries
 
-    // Did we reach final position?
+    // Did we reach the destination?
     if (position[0] == destination[0] && position[1] == destination[1]) {
       found = true
       generateBoardMarkup(tiles)
