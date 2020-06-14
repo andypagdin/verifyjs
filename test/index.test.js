@@ -1,4 +1,4 @@
-const getPossibleMoves = require('./index')
+const getPossibleMoves = require('../src/index')
 
 describe('Gets correct possible moves', () => {
   const tiles = [
