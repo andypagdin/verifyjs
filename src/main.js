@@ -20,49 +20,55 @@ const move = direction => {
   console.log('moving', direction)
 }
 
-const getPossibleMoves = (position, destination, tiles) => {
-  // always move right on first move
-  if (position[1] === 0) return [[position[0], 1]]
+const getCell = (matrix, y, x) => {
+  let value, hasValue
 
-  // always move right on second to last move
-  if (position[1] === tiles[0].length - 2) return [[position[0], 5]]
+  try {
+    hasValue = matrix[y][x] !== undefined
+    value = hasValue ? matrix[y][x] : null
+  } catch (e) {
+    value = null
+  }
 
-  let right = tiles[position[0]][position[1] + 1]
-  let up = tiles[position[0] - 1] ? tiles[position[0] - 1][position[1]] : undefined
-  let down = tiles[position[0] + 1] ? tiles[position[0] + 1][position[1]] : undefined
+  return value
+}
 
+const getMoves = (matrix, y, x, destinationY) => {
   let moves = []
+  let matrixLength = matrix[0].length - 1
 
-  if (right !== undefined) {
-    moves.push([ position[0], position[1] + 1 ])
+  // Always move right on the first and second to last move
+  if (x === 0 || x === matrixLength - 1) return [{ y: y, x: x+1, direction: 'right' }]
+
+  let up = getCell(matrix, y-1, x)
+  let down = getCell(matrix, y+1, x)
+  let right = getCell(matrix, y, x+1)
+
+  if (up !== null && up === 0) {
+    // Do not move away from the destination Y
+    if (isLastColumn(x, matrixLength) && y - 1 < destinationY) {
+      return [{ y: y+1, x: x, direction: 'down' }]
+    }
+    moves.push({ y: y-1, x: x, direction: 'up' })
   }
 
-  // TODO: tidy last column logic
-  if (up !== undefined && up == 0) {
-    // If the current position is on the last line
-    // only move up if it is towards the destination
-    if (position[1] == destination[1]) {
-      if (position[0] - 1 >= destination[0]) {
-        moves.push([ position[0] - 1, position[1] ])
-      }
-    } else {
-      moves.push([ position[0] - 1, position[1] ])
+  if (down !== null && down === 0) {
+    // Do not move away from the destination Y
+    if (isLastColumn(x, matrixLength) && y + 1 > destinationY) {
+      return [{ y: y-1, x: x, direction: 'up' }]
     }
+    moves.push({ y: y+1, x: x, direction: 'down' })
   }
 
-  if (down !== undefined && down == 0) {
-    // If the current position is on the last line
-    // only move down if it is towards the destination
-    if (position[1] == destination[1]) {
-      if (position[0] + 1 <= destination[0]) {
-        moves.push([ position[0] + 1, position[1] ])
-      }
-    } else {
-      moves.push([ position[0] + 1, position[1] ])
-    }
+  if (right !== null && right === 0) {
+    moves.push({ y: y, x: x+1, direction: 'right' })
   }
 
   return moves
+}
+
+const isLastColumn = (col, max) => {
+  return col === max ? true : false
 }
 
 const getRandomNum = max => {
@@ -92,8 +98,8 @@ const generatePath = () => {
     [0, 0, 0, 0, 0, 0]
   ]
 
-  let position = [getRandomNum(4), 0] // x, y
-  let destination = [getRandomNum(4), 5] // x, y
+  let position = [getRandomNum(4), 0] // y, x
+  let destination = [getRandomNum(4), 5] // y, x
 
   let tries = 1
   let found = false
@@ -103,16 +109,16 @@ const generatePath = () => {
     tries++
 
     // Get possible movements
-    let moves = getPossibleMoves(position, destination, tiles)
+    let moves = getMoves(tiles, position[0], position[1], destination[0])
 
     // Randomly choose a move
     let move = moves[getRandomNum(moves.length)]
 
     // Make the move
-    position = [move[0], move[1]]
+    position = [move.y, move.x]
 
     // Update tile
-    tiles[position[0]][position[1]] = tries
+    tiles[move.y][move.x] = tries
 
     // Did we reach the destination?
     if (position[0] == destination[0] && position[1] == destination[1]) {
@@ -122,6 +128,8 @@ const generatePath = () => {
   }
 }
 
-generatePath()
-
-// module.exports = getPossibleMoves
+module.exports = {
+  getCell: getCell,
+  isLastColumn: isLastColumn,
+  getMoves: getMoves
+}
