@@ -84,7 +84,6 @@ const generateBoardMarkup = tiles => {
     row.forEach((tile, index) => {
       let node = document.createElement('div')
       node.classList = 'tile'
-      node.dataset.index = index
 
       if (typeof(tile) == 'object') {
         let path = document.createElement('div')
@@ -121,9 +120,8 @@ const generatePath = () => {
     [0, 0, 0, 0, 0, 0]
   ]
 
-  let previousPosition
-  let position = [getRandomNum(4), 0] // y, x
-  let destination = [getRandomNum(4), 5] // y, x
+  let position = [getRandomNum(4), 0]
+  let destination = [getRandomNum(4), 5]
 
   let found = false
   while (!found) {
@@ -133,11 +131,8 @@ const generatePath = () => {
     // Randomly choose a move
     let move = moves[getRandomNum(moves.length)]
 
-    // Update previous position
-    previousPosition = { y: position[0], x: position[1], direction: position[2] }
-
     // Update tile with previous and next path data
-    tiles[position[0]][position[1]] = { previous: flip(previousPosition.direction), next: move.direction }
+    tiles[position[0]][position[1]] = { previous: flip(position[2]), next: move.direction }
 
     // Make the move
     position = [move.y, move.x, move.direction]
@@ -150,6 +145,8 @@ const generatePath = () => {
     }
   }
 }
+
+// generatePath()
 
 module.exports = {
   getCell: getCell,
