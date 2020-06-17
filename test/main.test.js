@@ -16,7 +16,6 @@ describe('helpers', () => {
   })
 })
 
-
 describe('return correct moves for a given position on the board', () => {
   const board = [
     [0, 0, 0, 0, 0, 0],

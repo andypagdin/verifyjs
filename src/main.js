@@ -38,7 +38,9 @@ const getMoves = (matrix, y, x, destinationY) => {
   let matrixLength = matrix[0].length - 1
 
   // Always move right on the first and second to last move
-  if (x === 0 || x === matrixLength - 1) return [{ y: y, x: x+1, direction: 'right' }]
+  if (x === 0 || x === matrixLength - 1) {
+    return [{ y: y, x: x+1, direction: 'right' }]
+  }
 
   let up = getCell(matrix, y-1, x)
   let down = getCell(matrix, y+1, x)
@@ -83,11 +85,32 @@ const generateBoardMarkup = tiles => {
       let node = document.createElement('div')
       node.classList = 'tile'
       node.dataset.index = index
-      node.innerHTML = tile
+
+      if (typeof(tile) == 'object') {
+        let path = document.createElement('div')
+        path.classList = `path ${tile.previous ? tile.previous : ''}${tile.next ? tile.next : ''}`
+        node.appendChild(path)
+      }
 
       board.appendChild(node)
     })
   })
+}
+
+const flip = val => {
+  let switched
+  switch(val) {
+    case 'up':
+      switched = 'down'
+      break;
+    case 'down':
+      switched = 'up'
+      break;
+    case 'right':
+      switched = 'left'
+      break
+  }
+  return switched
 }
 
 const generatePath = () => {
@@ -98,30 +121,30 @@ const generatePath = () => {
     [0, 0, 0, 0, 0, 0]
   ]
 
+  let previousPosition
   let position = [getRandomNum(4), 0] // y, x
   let destination = [getRandomNum(4), 5] // y, x
 
-  let tries = 1
   let found = false
-  tiles[position[0]][0] = tries
-
   while (!found) {
-    tries++
-
     // Get possible movements
     let moves = getMoves(tiles, position[0], position[1], destination[0])
 
     // Randomly choose a move
     let move = moves[getRandomNum(moves.length)]
 
-    // Make the move
-    position = [move.y, move.x]
+    // Update previous position
+    previousPosition = { y: position[0], x: position[1], direction: position[2] }
 
-    // Update tile
-    tiles[move.y][move.x] = tries
+    // Update tile with previous and next path data
+    tiles[position[0]][position[1]] = { previous: flip(previousPosition.direction), next: move.direction }
+
+    // Make the move
+    position = [move.y, move.x, move.direction]
 
     // Did we reach the destination?
     if (position[0] == destination[0] && position[1] == destination[1]) {
+      tiles[move.y][move.x] = { previous: flip(move.direction), next: undefined }
       found = true
       generateBoardMarkup(tiles)
     }

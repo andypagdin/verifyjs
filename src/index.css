@@ -20,9 +20,9 @@
 
 .tile {
   /* outline: 1px solid black; */
-  height: 38px;
+  height: 50px;
   width: 50px;
-  background-color: cornflowerblue;
+  background-color: #399040;
 }
 
 #container {
@@ -35,14 +35,14 @@
   display: flex;
   align-items: center;
   width: 421px;
-  height: 151px;
+  height: 200px;
   background-color: cadetblue;
 }
 
 /* Controls */
 .controls {
   flex: 0.37;
-  height: 75%;
+  height: 56%;
   background-color: darkorange;
   padding: 5px;
 }
@@ -274,4 +274,46 @@
 
 .d-pad a.right:hover:before {
   right: 35%;
+}
+
+/* Tile Paths */
+.path {
+  height: 100%;
+  width: 100%;
+}
+
+.leftright, .right {
+  background-image: url('../assets/left-right.png');
+}
+
+.leftup {
+  background-image: url('../assets/left-up.png');
+}
+
+.leftdown {
+  background-image: url('../assets/left-down.png');
+}
+
+.upright {
+  background-image: url('../assets/up-right.png');
+}
+
+.updown, .downup {
+  background-image: url('../assets/up-down.png');
+}
+
+.downright {
+  background-image: url('../assets/down-right.png');
+}
+
+.up {
+  background-image: url('../assets/up.png');
+}
+
+.left {
+  background-image: url('../assets/left.png');
+}
+
+.down {
+  background-image: url('../assets/down.png');
 }
