@@ -1,4 +1,4 @@
-import { flip, getCell, isLastColumn, getMoves, createModal, generateBoard } from '../src/lib'
+import { flip, getCell, isLastColumn, getMoves, createModal } from '../src/lib'
 
 describe('library helpers', () => {
   it ('flips direction', () => {

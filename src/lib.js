@@ -3,16 +3,16 @@ const getRandomNum = max => {
 }
 
 const updateTile = (board, y, x, empty = false) => {
-  let tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
-  let index = x + (board[0].length*y) // map 2D to 1D index
-  let content = empty ? '' : '<div class="vfy-char">👨</div>'
+  const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
+  const index = x + (board[0].length * y) // map 2D to 1D index
+  const content = empty ? '' : '<div class="vfy-char">👨</div>'
   tiles[index].getElementsByClassName('vfy-path')[0].innerHTML = content
 }
 
 const generateBoardMarkup = tiles => {
-  const board = $('#vfy-board')
+  const boardElement = $('#vfy-board')
 
-  if (!board) {
+  if (!boardElement) {
     console.error('Board element was not found in DOM')
     return
   }
@@ -26,14 +26,12 @@ const generateBoardMarkup = tiles => {
         let path = document.createElement('div')
         path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
 
-        if (index === 0) {
-          path.innerHTML = '<div class="vfy-char">👨</div>'
-        }
+        if (index === 0) path.innerHTML = '<div class="vfy-char">👨</div>'
 
         node.appendChild(path)
       }
 
-      board.appendChild(node)
+      boardElement.appendChild(node)
     })
   })
 }
@@ -85,7 +83,7 @@ export const move = (direction, board, currentPosition, endPosition) => {
   return currentPosition
 }
 
-export const getDirection = (e) => {
+export const getDirection = e => {
   if (e.target && e.target.nodeName == 'A') {
     e.preventDefault()
 
@@ -104,15 +102,9 @@ export const getDirection = (e) => {
 export const flip = val => {
   let switched
   switch(val) {
-    case 'up':
-      switched = 'down'
-      break;
-    case 'down':
-      switched = 'up'
-      break;
-    case 'right':
-      switched = 'left'
-      break
+    case 'up': switched = 'down'; break
+    case 'down': switched = 'up'; break
+    case 'right': switched = 'left'; break
   }
   return switched
 }
