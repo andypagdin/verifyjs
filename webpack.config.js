@@ -10,7 +10,7 @@ module.exports = {
     libraryTarget: 'umd'
   },
   devServer: {
-    contentBase: path.join(__dirname, 'local-test')
+    contentBase: path.join(__dirname, 'local-dev')
   },
   module: {
     rules: [
