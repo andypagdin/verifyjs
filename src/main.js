@@ -1,155 +1,240 @@
-document.body.addEventListener('click', e => {
-  if (e.target && e.target.nodeName == 'A') {
-    e.preventDefault()
-    getDirection(Number(e.target.dataset.key))
-  }
-})
+// Handle movement
+// TODO: listeners should only be on the verify element not document.body
+const verify = () => {
+  let board
+  let boardElement = document.getElementById('board')
+  let endPosition
+  let currentPosition
 
-document.body.onkeyup = e => getDirection(e.which)
-
-const getDirection = key => {
-  switch (key) {
-    case 37: move('left'); break
-    case 38: move('up'); break
-    case 39: move('right'); break
-    case 40: move('down'); break
-  }
-}
-
-const move = direction => {
-  console.log('moving', direction)
-}
-
-const getCell = (matrix, y, x) => {
-  let value, hasValue
-
-  try {
-    hasValue = matrix[y][x] !== undefined
-    value = hasValue ? matrix[y][x] : null
-  } catch (e) {
-    value = null
+  const addListeners = () => {
+    document.body.addEventListener('click', handleClick, true)
+    document.body.addEventListener('keyup', getDirection, true)
   }
 
-  return value
-}
-
-const getMoves = (matrix, y, x, destinationY) => {
-  let moves = []
-  let matrixLength = matrix[0].length - 1
-
-  // Always move right on the first and second to last move
-  if (x === 0 || x === matrixLength - 1) {
-    return [{ y: y, x: x+1, direction: 'right' }]
+  const removeListeners = () => {
+    document.body.removeEventListener('click', handleClick, true)
+    document.body.removeEventListener('keyup', getDirection, true)
   }
 
-  let up = getCell(matrix, y-1, x)
-  let down = getCell(matrix, y+1, x)
-  let right = getCell(matrix, y, x+1)
-
-  if (up !== null && up === 0) {
-    // Do not move away from the destination Y
-    if (isLastColumn(x, matrixLength) && y - 1 < destinationY) {
-      return [{ y: y+1, x: x, direction: 'down' }]
+  const handleClick = e => {
+    if (e.target && e.target.nodeName == 'A') {
+      e.preventDefault()
+      getDirection(Number(e.target.dataset.key))
     }
-    moves.push({ y: y-1, x: x, direction: 'up' })
   }
 
-  if (down !== null && down === 0) {
-    // Do not move away from the destination Y
-    if (isLastColumn(x, matrixLength) && y + 1 > destinationY) {
-      return [{ y: y-1, x: x, direction: 'up' }]
+  const getDirection = key => {
+    switch (key) {
+      case 37: move('left'); break
+      case 38: move('up'); break
+      case 39: move('right'); break
+      case 40: move('down'); break
     }
-    moves.push({ y: y+1, x: x, direction: 'down' })
   }
 
-  if (right !== null && right === 0) {
-    moves.push({ y: y, x: x+1, direction: 'right' })
+  const getCell = (matrix, y, x) => {
+    let value, hasValue
+
+    try {
+      hasValue = matrix[y][x] !== undefined
+      value = hasValue ? matrix[y][x] : null
+    } catch (e) {
+      value = null
+    }
+
+    return value
   }
 
-  return moves
-}
+  const updateTile = (y, x, empty = false) => {
+    let tiles = boardElement.getElementsByClassName('tile')
+    let index = x + (board[0].length*y) // map 2D to 1D index
+    let content = empty ? '' : '<div class="char">👨</div>'
+    tiles[index].getElementsByClassName('path')[0].innerHTML = content
+  }
 
-const isLastColumn = (col, max) => {
-  return col === max ? true : false
-}
+  const move = direction => {
+    let y = currentPosition[0]
+    let x = currentPosition[1]
 
-const getRandomNum = max => {
-  return Math.floor(Math.random() * max)
-}
+    let initialPosition = [y, x]
+    let currentTile = board[y][x]
 
-const generateBoardMarkup = tiles => {
-  const board = document.getElementById('board')
+    // if the tile.next = the move direction move it as far in that direction as it can go
+    if (currentTile.next == direction) {
+      let keepMoving = true
 
-  tiles.forEach(row => {
-    row.forEach((tile, index) => {
-      let node = document.createElement('div')
-      node.classList = 'tile'
+      while (keepMoving) {
+        switch (direction) {
+          case 'right': {
+            currentTile = getCell(board, y, x+1)
+            x = x+1
+            break
+          }
+          case 'up': {
+            currentTile = getCell(board, y-1, x)
+            y = y-1
+            break
+          }
+          case 'down': {
+            currentTile = getCell(board, y+1, x)
+            y = y+1
+            break
+          }
+        }
 
-      if (typeof(tile) == 'object') {
-        let path = document.createElement('div')
-        path.classList = `path ${tile.previous ? tile.previous : ''}${tile.next ? tile.next : ''}`
-        node.appendChild(path)
+        if (currentTile.next !== direction) {
+          keepMoving = false
+          currentPosition = [y, x]
+          updateTile(initialPosition[0], initialPosition[1], true)
+          updateTile(y, x)
+        }
       }
+    } else {
+      console.log('incorrect move', direction)
+    }
 
-      board.appendChild(node)
-    })
-  })
-}
-
-const flip = val => {
-  let switched
-  switch(val) {
-    case 'up':
-      switched = 'down'
-      break;
-    case 'down':
-      switched = 'up'
-      break;
-    case 'right':
-      switched = 'left'
-      break
-  }
-  return switched
-}
-
-const generatePath = () => {
-  const tiles = [
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0]
-  ]
-
-  let position = [getRandomNum(4), 0]
-  let destination = [getRandomNum(4), 5]
-
-  let found = false
-  while (!found) {
-    // Get possible movements
-    let moves = getMoves(tiles, position[0], position[1], destination[0])
-
-    // Randomly choose a move
-    let move = moves[getRandomNum(moves.length)]
-
-    // Update tile with previous and next path data
-    tiles[position[0]][position[1]] = { previous: flip(position[2]), next: move.direction }
-
-    // Make the move
-    position = [move.y, move.x, move.direction]
-
-    // Did we reach the destination?
-    if (position[0] == destination[0] && position[1] == destination[1]) {
-      tiles[move.y][move.x] = { previous: flip(move.direction), next: undefined }
-      found = true
-      generateBoardMarkup(tiles)
+    if (currentPosition[0] === endPosition[0] && currentPosition[1] === endPosition[1]) {
+      console.log('finished')
     }
   }
+
+  const getMoves = (matrix, y, x, destinationY) => {
+    let moves = []
+    let matrixLength = matrix[0].length - 1
+
+    // Always move right on the first and second to last move
+    if (x === 0 || x === matrixLength - 1) {
+      return [{ y: y, x: x+1, direction: 'right' }]
+    }
+
+    let up = getCell(matrix, y-1, x)
+    let down = getCell(matrix, y+1, x)
+    let right = getCell(matrix, y, x+1)
+
+    if (up !== null && up === 0) {
+      // Do not move away from the destination Y
+      if (isLastColumn(x, matrixLength) && y - 1 < destinationY) {
+        return [{ y: y+1, x: x, direction: 'down' }]
+      }
+      moves.push({ y: y-1, x: x, direction: 'up' })
+    }
+
+    if (down !== null && down === 0) {
+      // Do not move away from the destination Y
+      if (isLastColumn(x, matrixLength) && y + 1 > destinationY) {
+        return [{ y: y-1, x: x, direction: 'up' }]
+      }
+      moves.push({ y: y+1, x: x, direction: 'down' })
+    }
+
+    if (right !== null && right === 0) {
+      moves.push({ y: y, x: x+1, direction: 'right' })
+    }
+
+    return moves
+  }
+
+  const isLastColumn = (col, max) => {
+    return col === max ? true : false
+  }
+
+  const getRandomNum = max => {
+    return Math.floor(Math.random() * max)
+  }
+
+  const flip = val => {
+    let switched
+    switch(val) {
+      case 'up':
+        switched = 'down'
+        break;
+      case 'down':
+        switched = 'up'
+        break;
+      case 'right':
+        switched = 'left'
+        break
+    }
+    return switched
+  }
+
+  const generateBoardMarkup = tiles => {
+    const board = document.getElementById('board')
+
+    tiles.forEach(row => {
+      row.forEach((tile, index) => {
+        let node = document.createElement('div')
+        node.classList = 'tile'
+
+        if (typeof(tile) == 'object') {
+          let path = document.createElement('div')
+          path.classList = `path ${tile.previous ? tile.previous : ''}${tile.next ? tile.next : ''}`
+
+          if (index === 0) {
+            path.innerHTML = '<div class="char">👨</div>'
+          }
+
+          node.appendChild(path)
+        }
+
+        board.appendChild(node)
+      })
+    })
+  }
+
+  const generateBoard = () => {
+    const tiles = [
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0]
+    ]
+
+    let position = [getRandomNum(4), 0]
+    let destination = [getRandomNum(4), 5]
+
+    currentPosition = position
+    endPosition = destination
+
+    let found = false
+    while (!found) {
+      // Get possible movements
+      let moves = getMoves(tiles, position[0], position[1], destination[0])
+
+      // Randomly choose a move
+      let move = moves[getRandomNum(moves.length)]
+
+      // Update tile with previous and next path data
+      tiles[position[0]][position[1]] = { previous: flip(position[2]), next: move.direction }
+
+      // Make the move
+      position = [move.y, move.x, move.direction]
+
+      // Did we reach the destination?
+      if (position[0] == destination[0] && position[1] == destination[1]) {
+        tiles[move.y][move.x] = { previous: flip(move.direction), next: undefined }
+        found = true
+        generateBoardMarkup(tiles)
+        return tiles
+      }
+    }
+  }
+
+  const start = () => {
+    board = generateBoard()
+    addListeners()
+  }
+
+  return {
+    getCell,
+    isLastColumn,
+    getMoves,
+    start,
+    move
+  }
 }
 
-// generatePath()
+const Verify = verify()
+Verify.start()
 
-module.exports = {
-  getCell: getCell,
-  isLastColumn: isLastColumn,
-  getMoves: getMoves
-}
+// module.exports = verify

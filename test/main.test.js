@@ -1,4 +1,6 @@
-const Verify = require('../src/main')
+const verify = require('../src/main')
+
+const Verify = verify()
 
 describe('helpers', () => {
   it('gets the correct cell in matrix from a given position', () => {

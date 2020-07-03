@@ -276,10 +276,15 @@
   right: 35%;
 }
 
+.char {
+  padding: 10px;
+}
+
 /* Tile Paths */
 .path {
   height: 100%;
   width: 100%;
+  text-align: center;
 }
 
 .leftright, .right {
