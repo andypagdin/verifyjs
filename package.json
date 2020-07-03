@@ -2,14 +2,25 @@
   "name": "verify-js",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "dist/verify.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^26.0.1"
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.6.0",
+    "file-loader": "^6.0.0",
+    "jest": "^26.0.1",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }
