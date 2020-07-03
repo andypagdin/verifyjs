@@ -3,14 +3,14 @@ const getRandomNum = max => {
 }
 
 const updateTile = (board, y, x, empty = false) => {
-  let tiles = $('#board').getElementsByClassName('tile')
+  let tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
   let index = x + (board[0].length*y) // map 2D to 1D index
-  let content = empty ? '' : '<div class="char">👨</div>'
-  tiles[index].getElementsByClassName('path')[0].innerHTML = content
+  let content = empty ? '' : '<div class="vfy-char">👨</div>'
+  tiles[index].getElementsByClassName('vfy-path')[0].innerHTML = content
 }
 
 const generateBoardMarkup = tiles => {
-  const board = document.getElementById('board')
+  const board = $('#vfy-board')
 
   if (!board) {
     console.error('Board element was not found in DOM')
@@ -20,14 +20,14 @@ const generateBoardMarkup = tiles => {
   tiles.forEach(row => {
     row.forEach((tile, index) => {
       let node = document.createElement('div')
-      node.classList = 'tile'
+      node.classList = 'vfy-tile'
 
       if (typeof(tile) == 'object') {
         let path = document.createElement('div')
-        path.classList = `path ${tile.previous ? tile.previous : ''}${tile.next ? tile.next : ''}`
+        path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
 
         if (index === 0) {
-          path.innerHTML = '<div class="char">👨</div>'
+          path.innerHTML = '<div class="vfy-char">👨</div>'
         }
 
         node.appendChild(path)
@@ -181,7 +181,7 @@ export const generateBoard = () => {
   let position = [getRandomNum(4), 0]
   let destination = [getRandomNum(4), 5]
 
-  let currentPosition = position
+  let initialPosition = position
 
   let found = false
   while (!found) {
@@ -202,7 +202,7 @@ export const generateBoard = () => {
       tiles[move.y][move.x] = { previous: flip(move.direction), next: undefined }
       found = true
       generateBoardMarkup(tiles)
-      return { board: tiles, currentPosition: currentPosition, endPosition: destination }
+      return { board: tiles, currentPosition: initialPosition, endPosition: destination }
     }
   }
 }
@@ -213,22 +213,22 @@ export const $ = selector => {
 
 export const createModal = () => {
   const modal =
-    '<div id="container">' +
-      '<div class="controls">' +
-        '<nav class="d-pad">' +
-          '<a class="up" data-key="38" href="#"></a>' +
-          '<a class="right" data-key="39" href="#"></a>' +
-          '<a class="down" data-key="40" href="#"></a>' +
-          '<a class="left" data-key="37" href="#"></a>' +
+    '<div id="vfy-container">' +
+      '<div class="vfy-controls">' +
+        '<nav class="vfy-d-pad">' +
+          '<a class="vfy-up" data-key="38" href="#"></a>' +
+          '<a class="vfy-right" data-key="39" href="#"></a>' +
+          '<a class="vfy-down" data-key="40" href="#"></a>' +
+          '<a class="vfy-left" data-key="37" href="#"></a>' +
         '</nav>' +
       '</div>' +
-      '<div id="board-container">' +
-        '<div id="board"></div>' +
+      '<div id="vfy-board-container">' +
+        '<div id="vfy-board"></div>' +
       '</div>' +
     '</div>'
 
   const node = document.createElement('div')
-  node.className = 'wrapper'
+  node.className = 'vfy-wrapper'
   node.innerHTML = modal
   $('body').appendChild(node)
 }

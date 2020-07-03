@@ -23,18 +23,18 @@ describe('library helpers', () => {
 
   it('creates modal', () => {
     const modal =
-      '<div class="wrapper">' +
-        '<div id="container">' +
-          '<div class="controls">' +
-            '<nav class="d-pad">' +
-              '<a class="up" data-key="38" href="#"></a>' +
-              '<a class="right" data-key="39" href="#"></a>' +
-              '<a class="down" data-key="40" href="#"></a>' +
-              '<a class="left" data-key="37" href="#"></a>' +
+      '<div class="vfy-wrapper">' +
+        '<div id="vfy-container">' +
+          '<div class="vfy-controls">' +
+            '<nav class="vfy-d-pad">' +
+              '<a class="vfy-up" data-key="38" href="#"></a>' +
+              '<a class="vfy-right" data-key="39" href="#"></a>' +
+              '<a class="vfy-down" data-key="40" href="#"></a>' +
+              '<a class="vfy-left" data-key="37" href="#"></a>' +
             '</nav>' +
           '</div>' +
-          '<div id="board-container">' +
-            '<div id="board"></div>' +
+          '<div id="vfy-board-container">' +
+            '<div id="vfy-board"></div>' +
           '</div>' +
         '</div>' +
       '</div>'

@@ -1,4 +1,4 @@
-.wrapper {
+.vfy-wrapper {
   /* To be removed later, display in better position to aid development */
   width: 100%;
   height: 100%;
@@ -6,26 +6,26 @@
 }
 
 /* Board */
-#board {
+#vfy-board {
   display: flex;
   flex-wrap: wrap;
 }
 
-#board-container {
+#vfy-board-container {
   display: flex;
   flex: 1;
   height: 100%;
   background-color: crimson;
 }
 
-.tile {
+.vfy-tile {
   /* outline: 1px solid black; */
   height: 50px;
   width: 50px;
   background-color: #399040;
 }
 
-#container {
+#vfy-container {
   /* To be removed later, display in better position to aid development */
   top: 35%;
   margin-left: 30px;
@@ -40,14 +40,14 @@
 }
 
 /* Controls */
-.controls {
+.vfy-controls {
   flex: 0.37;
   height: 56%;
   background-color: darkorange;
   padding: 5px;
 }
 
-.d-pad {
+.vfy-d-pad {
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -55,7 +55,7 @@
   border-radius: 48%;
 }
 
-.d-pad:before {
+.vfy-d-pad:before {
   content: '';
   position: absolute;
   border-radius: 5%;
@@ -67,7 +67,7 @@
   background: #ddd;
 }
 
-.d-pad:after {
+.vfy-d-pad:after {
   content: '';
   position: absolute;
   display: none;
@@ -82,12 +82,12 @@
   transition: all .25s;
   cursor: pointer;
 }
-.d-pad:hover:after {
+.vfy-d-pad:hover:after {
   width: 30%;
   height: 30%;
 }
 
-.d-pad a {
+.vfy-d-pad a {
   display:block;
   position: absolute;
   -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
@@ -99,11 +99,11 @@
   text-align: center;
 }
 
-.d-pad a:hover {
+.vfy-d-pad a:hover {
   background: #eee;
 }
 
-.d-pad a:before {
+.vfy-d-pad a:before {
   content: '';
   position: absolute;
   width: 0;
@@ -113,7 +113,7 @@
   transition: all .25s;
 }
 
-.d-pad a:after {
+.vfy-d-pad a:after {
   content: '';
   position: absolute;
   width: 102%;
@@ -122,29 +122,29 @@
   border-radius: 20%;
 }
 
-.d-pad a.left, .d-pad a.right {
+.vfy-d-pad a.vfy-left, .vfy-d-pad a.vfy-right {
   width: 43%;
   height: 33%;
 }
 
-.d-pad a.left:after, .d-pad a.right:after {
+.vfy-d-pad a.vfy-left:after, .vfy-d-pad a.vfy-right:after {
   width: 78%;
   height: 102%;
 }
 
 /* D-Pad Up */
-.d-pad a.up {
+.vfy-d-pad a.vfy-up {
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
   border-radius: 17% 17% 50% 50%;
 }
 
-.d-pad a.up:hover {
+.vfy-d-pad a.vfy-up:hover {
   background: linear-gradient(0deg, #ddd 0%, #eee 50%);
 }
 
-.d-pad a.up:after {
+.vfy-d-pad a.vfy-up:after {
   left: 0;
   top: 0;
   transform: translate(-100%, 0);
@@ -152,7 +152,7 @@
   pointer-events: none;
 }
 
-.d-pad a.up:before {
+.vfy-d-pad a.vfy-up:before {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -160,27 +160,27 @@
   border-color: transparent transparent #aaa transparent;
 }
 
-.d-pad a.up:active:before {
+.vfy-d-pad a.vfy-up:active:before {
   border-bottom-color: #333;
 }
 
-.d-pad a.up:hover:before {
+.vfy-d-pad a.vfy-up:hover:before {
   top: 35%;
 }
 
 /* D-Pad Down */
-.d-pad a.down {
+.vfy-d-pad a.vfy-down {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
   border-radius: 50% 50% 17% 17%;
 }
 
-.d-pad a.down:hover {
+.vfy-d-pad a.vfy-down:hover {
   background: linear-gradient(180deg, #ddd 0%, #eee 50%);
 }
 
-.d-pad a.down:after {
+.vfy-d-pad a.vfy-down:after {
   right: 0;
   bottom: 0;
   transform: translate(100%, 0);
@@ -188,7 +188,7 @@
   pointer-events: none;
 }
 
-.d-pad a.down:before {
+.vfy-d-pad a.vfy-down:before {
   bottom: 40%;
   left: 50%;
   transform: translate(-50%, 50%);
@@ -196,27 +196,27 @@
   border-color: #aaa transparent transparent transparent;
 }
 
-.d-pad a.down:active:before {
+.vfy-d-pad a.vfy-down:active:before {
   border-top-color: #333;
 }
 
-.d-pad a.down:hover:before {
+.vfy-d-pad a.vfy-down:hover:before {
   bottom: 35%;
 }
 
 /* D-Pad Left */
-.d-pad a.left {
+.vfy-d-pad a.vfy-left {
   top: 50%;
   left: 0;
   transform: translate(0, -50%);
   border-radius: 17% 50% 50% 17%;
 }
 
-.d-pad a.left:hover {
+.vfy-d-pad a.vfy-left:hover {
   background: linear-gradient(-90deg, #ddd 0%, #eee 50%);
 }
 
-.d-pad a.left:after {
+.vfy-d-pad a.vfy-left:after {
   left: 0;
   bottom: 0;
   transform: translate(0, 100%);
@@ -224,7 +224,7 @@
   pointer-events: none;
 }
 
-.d-pad a.left:before {
+.vfy-d-pad a.vfy-left:before {
   left: 40%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -232,27 +232,27 @@
   border-color: transparent #aaa transparent transparent;
 }
 
-.d-pad a.left:active:before {
+.vfy-d-pad a.vfy-left:active:before {
   border-right-color: #333;
 }
 
-.d-pad a.left:hover:before {
+.vfy-d-pad a.vfy-left:hover:before {
   left: 35%;
 }
 
 /* D-Pad Right */
-.d-pad a.right {
+.vfy-d-pad a.vfy-right {
   top: 50%;
   right: 0;
   transform: translate(0, -50%);
   border-radius: 50% 17% 17% 50%;
 }
 
-.d-pad a.right:hover {
+.vfy-d-pad a.vfy-right:hover {
   background: linear-gradient(90deg, #ddd 0%, #eee 50%);
 }
 
-.d-pad a.right:after {
+.vfy-d-pad a.vfy-right:after {
   right: 0;
   top: 0;
   transform: translate(0, -100%);
@@ -260,7 +260,7 @@
   pointer-events: none;
 }
 
-.d-pad a.right:before {
+.vfy-d-pad a.vfy-right:before {
   right: 40%;
   top: 50%;
   transform: translate(50%, -50%);
@@ -268,57 +268,57 @@
   border-color: transparent transparent transparent #aaa;
 }
 
-.d-pad a.right:active:before {
+.vfy-d-pad a.vfy-right:active:before {
   border-left-color: #333;
 }
 
-.d-pad a.right:hover:before {
+.vfy-d-pad a.vfy-right:hover:before {
   right: 35%;
 }
 
-.char {
+.vfy-char {
   padding: 10px;
 }
 
 /* Tile Paths */
-.path {
+.vfy-path {
   height: 100%;
   width: 100%;
   text-align: center;
 }
 
-.leftright, .right {
+.vfy-leftvfy-right, .vfy-right {
   background-image: url('../assets/left-right.png');
 }
 
-.leftup {
+.vfy-leftvfy-up {
   background-image: url('../assets/left-up.png');
 }
 
-.leftdown {
+.vfy-leftvfy-down {
   background-image: url('../assets/left-down.png');
 }
 
-.upright {
+.vfy-upvfy-right {
   background-image: url('../assets/up-right.png');
 }
 
-.updown, .downup {
+.vfy-upvfy-down, .vfy-downvfy-up {
   background-image: url('../assets/up-down.png');
 }
 
-.downright {
+.vfy-downvfy-right {
   background-image: url('../assets/down-right.png');
 }
 
-.up {
+.vfy-up {
   background-image: url('../assets/up.png');
 }
 
-.left {
+.vfy-left {
   background-image: url('../assets/left.png');
 }
 
-.down {
+.vfy-down {
   background-image: url('../assets/down.png');
 }

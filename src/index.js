@@ -6,7 +6,7 @@ export const action = () => {
 
   let { board, currentPosition, endPosition } = generateBoard()
 
-  $('.controls').addEventListener('click', e => {
+  $('.vfy-controls').addEventListener('click', e => {
     currentPosition = move(getDirection(e), board, currentPosition, endPosition)
   }, true)
 }
