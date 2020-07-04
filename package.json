@@ -8,7 +8,7 @@
     "test:watch": "jest --watch",
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server",
-    "lint": "eslint '**/*.js'"
+    "lint": "eslint \"**/*.js\""
   },
   "author": "",
   "license": "ISC",
@@ -27,8 +27,14 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "moduleFileExtensions": ["js"],
-      "moduleDirectories": ["node_modules", "bower_components", "shared"],
+      "moduleFileExtensions": [
+        "js"
+      ],
+      "moduleDirectories": [
+        "node_modules",
+        "bower_components",
+        "shared"
+      ],
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/file-mock.js",
       "\\.(css|less)$": "<rootDir>/mocks/style-mock.js"
     }
