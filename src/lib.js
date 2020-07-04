@@ -9,7 +9,7 @@ const updateTile = (board, y, x, empty = false) => {
   tiles[index].getElementsByClassName('vfy-path')[0].innerHTML = content
 }
 
-const generateBoardMarkup = tiles => {
+export const generateBoardMarkup = tiles => {
   const boardElement = $('#vfy-board')
 
   if (!boardElement) {
@@ -73,11 +73,11 @@ export const move = (direction, board, currentPosition, endPosition) => {
       }
     }
   } else {
-    console.log('incorrect move', direction)
+    return { message: `Incorrect move ${direction}`, result: 0 }
   }
 
   if (currentPosition[0] === endPosition[0] && currentPosition[1] === endPosition[1]) {
-    console.log('finished')
+    return { message: 'Verification successful', result: 1 }
   }
 
   return currentPosition
@@ -226,4 +226,8 @@ export const createModal = () => {
   node.className = 'vfy-wrapper'
   node.innerHTML = modal
   $('body').appendChild(node)
+}
+
+export const removeModal = () => {
+  $('.vfy-wrapper').remove()
 }

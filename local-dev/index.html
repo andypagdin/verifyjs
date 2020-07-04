@@ -6,7 +6,9 @@
   <body>
     <script src="verify.js"></script>
     <script>
-      Verify.action()
+      Verify.action((result, message) => {
+        console.log(result, message)
+      })
     </script>
   </body>
 </html>
