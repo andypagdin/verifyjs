@@ -35,9 +35,7 @@ describe('library helpers', () => {
               '<a class="vfy-left" data-key="37" href="#"></a>' +
             '</nav>' +
           '</div>' +
-          '<div id="vfy-board-container">' +
-            '<div id="vfy-board"></div>' +
-          '</div>' +
+          '<div id="vfy-board"></div>' +
         '</div>' +
       '</div>'
 

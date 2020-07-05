@@ -28,13 +28,7 @@
 #vfy-board {
   display: flex;
   flex-wrap: wrap;
-}
-
-#vfy-board-container {
-  display: flex;
   flex: 1;
-  height: 100%;
-  background-color: crimson;
 }
 
 .vfy-tile {
@@ -45,12 +39,14 @@
 
 #vfy-container {
   position: relative;
-  outline: 1px solid black;
+  border-radius: 10px;
+  padding-right: 10px;
   display: flex;
   align-items: center;
   width: 421px;
   height: 200px;
-  background-color: cadetblue;
+  background: linear-gradient(90deg, #c2c2c2 30%, #399040 0%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
 #vfy-container:hover {
@@ -61,7 +57,6 @@
 .vfy-controls {
   flex: 0.37;
   height: 56%;
-  background-color: darkorange;
   padding: 5px;
 }
 
@@ -136,7 +131,7 @@
   position: absolute;
   width: 102%;
   height: 78%;
-  background: darkorange;
+  background: #c2c2c2;
   border-radius: 20%;
 }
 

@@ -2,10 +2,14 @@ const getRandomNum = max => {
   return Math.floor(Math.random() * max)
 }
 
+const getCharacter = () => {
+  return '<div class="vfy-char">👨</div>'
+}
+
 const updateTile = (board, y, x, empty = false) => {
   const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
   const index = x + (board[0].length * y) // map 2D to 1D index
-  const content = empty ? '' : '<div class="vfy-char">👨</div>'
+  const content = empty ? '' : getCharacter()
   tiles[index].getElementsByClassName('vfy-path')[0].innerHTML = content
 }
 
@@ -26,7 +30,7 @@ export const generateBoardMarkup = tiles => {
         let path = document.createElement('div')
         path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
 
-        if (index === 0) path.innerHTML = '<div class="vfy-char">👨</div>'
+        if (index === 0) path.innerHTML = getCharacter()
 
         node.appendChild(path)
       }
@@ -217,9 +221,7 @@ export const createModal = () => {
           '<a class="vfy-left" data-key="37" href="#"></a>' +
         '</nav>' +
       '</div>' +
-      '<div id="vfy-board-container">' +
-        '<div id="vfy-board"></div>' +
-      '</div>' +
+      '<div id="vfy-board"></div>' +
     '</div>'
 
   const node = document.createElement('div')
