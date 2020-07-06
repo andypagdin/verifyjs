@@ -1,4 +1,4 @@
-import { createModal, generateBoard, getDirection, $, move, removeModal } from './lib'
+import { createModal, generateBoard, getDirection, $, move, removeModal, showResult } from './lib'
 import './index.css'
 
 // 0 Verify failed
@@ -16,7 +16,7 @@ export const action = (callback) => {
 
       // If a non array (results object) is returned from move a result has been reached
       if (!Array.isArray(currentPosition)) {
-        removeModal()
+        showResult(currentPosition.result)
         callback(currentPosition.result, currentPosition.message)
       }
     }

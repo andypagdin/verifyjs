@@ -208,7 +208,10 @@ export const $ = selector => {
 }
 
 export const createModal = () => {
-  const close = '<svg t="1590331085919" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3734" width="30" height="30"> <path d="M512 451.67l225.835-225.835a42.667 42.667 0 0 1 60.33 60.33L572.331 512l225.834 225.835a42.667 42.667 0 0 1-60.33 60.33L512 572.331 286.165 798.165a42.667 42.667 0 1 1-60.33-60.33L451.669 512 225.835 286.165a42.667 42.667 0 0 1 60.33-60.33L512 451.669z" p-id="3735" fill="#000"></path></svg>'
+  const close =
+    '<svg viewBox="0 0 1024 1024" width="30" height="30">' +
+      '<path d="M512 451.67l225.835-225.835a42.667 42.667 0 0 1 60.33 60.33L572.331 512l225.834 225.835a42.667 42.667 0 0 1-60.33 60.33L512 572.331 286.165 798.165a42.667 42.667 0 1 1-60.33-60.33L451.669 512 225.835 286.165a42.667 42.667 0 0 1 60.33-60.33L512 451.669z" p-id="3735" fill="#000"></path>' +
+    '</svg>'
 
   const modal =
     `<div class="vfy-close">${close}</div>` +
@@ -228,6 +231,44 @@ export const createModal = () => {
   node.className = 'vfy-wrapper'
   node.innerHTML = modal
   $('body').appendChild(node)
+}
+
+export const showResult = result => {
+  const faCheck =
+    '<svg width="60" height="60" viewBox="0 0 512 512">' +
+      '<path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>'
+    '</svg>'
+  const faTimes =
+    '<svg width="60" height="60" viewBox="0 0 352 512">' +
+      '<path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>' +
+    '</svg>'
+
+  let icon = faCheck
+  let iconClass = 'check'
+
+  if (result !== 1) {
+    icon = faTimes
+    iconClass = 'times'
+  }
+
+  const marker =
+    '<label class="vfy-result-label">' +
+     '<span class="vfy-result-label-text">' +
+        `<span class="vfy-result-label-icon-${iconClass}">` +
+          `<span class="icon">${icon}</span>` +
+        '</span>' +
+      '</span>' +
+    '</label>'
+
+  // disable controls
+
+  // append result marker
+  $('#vfy-board').innerHTML = marker
+
+  // remove from modal after set time
+  setTimeout(() => {
+    removeModal()
+  }, 700)
 }
 
 export const removeModal = () => {

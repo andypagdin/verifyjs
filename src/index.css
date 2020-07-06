@@ -45,7 +45,7 @@
   align-items: center;
   width: 421px;
   height: 200px;
-  background: linear-gradient(90deg, #c2c2c2 30%, #399040 0%);
+  background: linear-gradient(90deg, #c2c2c2 28%, #399040 0%);
   box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
@@ -334,4 +334,76 @@
 
 .vfy-down {
   background-image: url('../assets/down.png');
+}
+
+/* Results check or cross */
+.vfy-result-label {
+  margin: 0 auto;
+}
+
+.vfy-result-label-icon-check, .vfy-result-label-icon-times {
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vfy-result-label-text .vfy-result-label-icon-check {
+  animation: check .3s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+}
+
+.vfy-result-label-text .vfy-result-label-icon-times {
+  animation: times .3s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+}
+
+.vfy-result-label-text .icon {
+  opacity: 1;
+  transform: scale(0);
+  color: white;
+  -webkit-text-stroke: 0;
+  animation: icon .3s cubic-bezier(1.000, 0.008, 0.565, 1.650) .1s 1 forwards;
+}
+
+@keyframes icon {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes check {
+  from {
+    width: 8em;
+    height: 8em;
+    border-width: 5px;
+  }
+  to {
+    width: 10em;
+    height: 10em;
+    border: 0;
+    background: #00d478;
+    opacity: 1;
+  }
+}
+
+@keyframes times {
+  from {
+    width: 8em;
+    height: 8em;
+    border-width: 5px;
+  }
+  to {
+    width: 10em;
+    height: 10em;
+    border: 0;
+    background: #E15554;
+    opacity: 1;
+  }
 }

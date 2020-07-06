@@ -15,7 +15,6 @@ describe('Verify action DOM', () => {
     const callback = (result, message) => {
       expect(result).toEqual(2)
       expect(message).toEqual(closeMessage)
-      expect(document.body.innerHTML).toEqual('')
       done()
     }
 
@@ -28,7 +27,6 @@ describe('Verify action DOM', () => {
     const callback = (result, message) => {
       expect(result).toEqual(2)
       expect(message).toEqual(closeMessage)
-      expect(document.body.innerHTML).toEqual('')
       done()
     }
 
