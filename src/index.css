@@ -380,13 +380,13 @@
 
 @keyframes check {
   from {
-    width: 8em;
-    height: 8em;
+    width: 7em;
+    height: 7em;
     border-width: 5px;
   }
   to {
-    width: 10em;
-    height: 10em;
+    width: 9em;
+    height: 9em;
     border: 0;
     background: #00d478;
     opacity: 1;
@@ -395,13 +395,13 @@
 
 @keyframes times {
   from {
-    width: 8em;
-    height: 8em;
+    width: 7em;
+    height: 7em;
     border-width: 5px;
   }
   to {
-    width: 10em;
-    height: 10em;
+    width: 9em;
+    height: 9em;
     border: 0;
     background: #E15554;
     opacity: 1;
