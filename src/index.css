@@ -293,6 +293,18 @@
   padding: 10px;
 }
 
+.vfy-leftvfy-right .vfy-char, .vfy-right .vfy-char, .vfy-leftvfy-up .vfy-char {
+  transform: rotate(-90deg);
+}
+
+.vfy-upvfy-right .vfy-char, .vfy-down .vfy-char {
+  transform: rotate(-180deg);
+}
+
+.vfy-left .vfy-char {
+  transform: rotate(90deg);
+}
+
 /* Tile Paths */
 .vfy-path {
   height: 100%;
@@ -301,11 +313,14 @@
 }
 
 .vfy-leftvfy-right, .vfy-right {
-  background-image: url('../assets/left-right.png');
+  background-image: url('../assets/up-down.png');
+  transform: rotate(90deg);
 }
 
+
 .vfy-leftvfy-up {
-  background-image: url('../assets/left-up.png');
+  background-image: url('../assets/left-down.png');
+  transform: rotate(90deg);
 }
 
 .vfy-leftvfy-down {
@@ -313,7 +328,8 @@
 }
 
 .vfy-upvfy-right {
-  background-image: url('../assets/up-right.png');
+  background-image: url('../assets/left-down.png');
+  transform: rotate(180deg);
 }
 
 .vfy-upvfy-down, .vfy-downvfy-up {
@@ -321,7 +337,8 @@
 }
 
 .vfy-downvfy-right {
-  background-image: url('../assets/down-right.png');
+  background-image: url('../assets/left-down.png');
+  transform: scale(-1, 1);
 }
 
 .vfy-up {
@@ -329,11 +346,17 @@
 }
 
 .vfy-left {
-  background-image: url('../assets/left.png');
+  background-image: url('../assets/up.png');
+  transform: rotate(-90deg)
 }
 
 .vfy-down {
-  background-image: url('../assets/down.png');
+  background-image: url('../assets/up.png');
+  transform: rotate(180deg);
+}
+
+.vfy-grass {
+  background-image: url('../assets/grass.png');
 }
 
 /* Results check or cross */
