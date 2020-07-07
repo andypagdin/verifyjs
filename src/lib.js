@@ -26,15 +26,15 @@ export const generateBoardMarkup = tiles => {
       let node = document.createElement('div')
       node.classList = 'vfy-tile'
 
+      let path = document.createElement('div')
       if (typeof(tile) == 'object') {
-        let path = document.createElement('div')
         path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
-
         if (index === 0) path.innerHTML = getCharacter()
-
-        node.appendChild(path)
+      } else {
+        path.classList = 'vfy-path vfy-grass'
       }
 
+      node.appendChild(path)
       boardElement.appendChild(node)
     })
   })
