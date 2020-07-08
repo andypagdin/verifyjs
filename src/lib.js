@@ -31,7 +31,7 @@ export const generateBoardMarkup = tiles => {
         path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
         if (index === 0) path.innerHTML = getCharacter()
       } else {
-        path.classList = 'vfy-path vfy-grass'
+        path.classList = 'vfy-path vfy-bg'
       }
 
       node.appendChild(path)

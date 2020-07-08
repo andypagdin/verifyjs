@@ -32,20 +32,19 @@
 }
 
 .vfy-tile {
-  height: 50px;
-  width: 50px;
-  background-color: #399040;
+  height: 48px;
+  width: 48px;
 }
 
 #vfy-container {
   position: relative;
   border-radius: 10px;
-  padding-right: 10px;
+  padding-right: 6px;
   display: flex;
   align-items: center;
-  width: 421px;
-  height: 200px;
-  background: linear-gradient(90deg, #c2c2c2 28%, #399040 0%);
+  width: 405px;
+  height: 192px;
+  background: linear-gradient(90deg, #c2c2c2 28%, #78a0aa 0%);
   box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
@@ -289,38 +288,25 @@
   right: 35%;
 }
 
-.vfy-char {
-  padding: 10px;
-}
-
-.vfy-leftvfy-right .vfy-char, .vfy-right .vfy-char, .vfy-leftvfy-up .vfy-char {
-  transform: rotate(-90deg);
-}
-
-.vfy-upvfy-right .vfy-char, .vfy-down .vfy-char {
-  transform: rotate(-180deg);
-}
-
-.vfy-left .vfy-char {
-  transform: rotate(90deg);
-}
 
 /* Tile Paths */
 .vfy-path {
   height: 100%;
   width: 100%;
   text-align: center;
+  background-size: cover;
+}
+
+.vfy-char {
+  padding: 10px;
 }
 
 .vfy-leftvfy-right, .vfy-right {
-  background-image: url('../assets/up-down.png');
-  transform: rotate(90deg);
+  background-image: url('../assets/left-right.png');
 }
 
-
 .vfy-leftvfy-up {
-  background-image: url('../assets/left-down.png');
-  transform: rotate(90deg);
+  background-image: url('../assets/left-up.png');
 }
 
 .vfy-leftvfy-down {
@@ -328,8 +314,7 @@
 }
 
 .vfy-upvfy-right {
-  background-image: url('../assets/left-down.png');
-  transform: rotate(180deg);
+  background-image: url('../assets/up-right.png');
 }
 
 .vfy-upvfy-down, .vfy-downvfy-up {
@@ -337,8 +322,7 @@
 }
 
 .vfy-downvfy-right {
-  background-image: url('../assets/left-down.png');
-  transform: scale(-1, 1);
+  background-image: url('../assets/down-right.png');
 }
 
 .vfy-up {
@@ -346,17 +330,19 @@
 }
 
 .vfy-left {
-  background-image: url('../assets/up.png');
-  transform: rotate(-90deg)
+  background-image: url('../assets/left.png');
 }
 
 .vfy-down {
-  background-image: url('../assets/up.png');
-  transform: rotate(180deg);
+  background-image: url('../assets/down.png');
 }
 
-.vfy-grass {
-  background-image: url('../assets/grass.png');
+.vfy-bg {
+  background-image: url('../assets/bg.png');
+}
+
+.vfy-large-rock {
+  background-image: url('../assets/large-rock.png');
 }
 
 /* Results check or cross */
