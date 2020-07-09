@@ -13,7 +13,43 @@ const updateTile = (board, y, x, empty = false) => {
   tiles[index].getElementsByClassName('vfy-path')[0].innerHTML = content
 }
 
+export const getEmptyTiles = tiles => {
+  let emptyTiles = []
+  tiles.forEach((row, rowIndex) => {
+    row.forEach((tile, tileIndex) => {
+      if (typeof(tile) === 'number') {
+        emptyTiles.push([rowIndex, tileIndex])
+      }
+    })
+  })
+  return emptyTiles
+}
+
+export const addDecoration = (tiles, emptyTiles, decoration) => {
+  for (let i = 0; i < decoration.count; i++) {
+    const rand = getRandomNum(emptyTiles.length)
+    const tile = emptyTiles[rand]
+    if (tile) {
+      tiles[tile[0]][tile[1]] = { decoration: decoration.name }
+      emptyTiles.splice(rand, 1)
+    }
+  }
+}
+
 export const generateBoardMarkup = tiles => {
+  const emptyTiles = getEmptyTiles(tiles)
+
+  const decorations = [
+    { name: 'vfy-large-rock', count: 3 },
+    { name: 'vfy-weeds-one', count: 1 },
+    { name: 'vfy-weeds-two', count: 2 },
+    { name: 'vfy-weeds-three', count: 2 },
+    { name: 'vfy-weeds-four', count: 4 }
+  ]
+  decorations.forEach(decoration => {
+    addDecoration(tiles, emptyTiles, decoration)
+  })
+
   const boardElement = $('#vfy-board')
 
   if (!boardElement) {
@@ -28,9 +64,14 @@ export const generateBoardMarkup = tiles => {
 
       let path = document.createElement('div')
       if (typeof(tile) == 'object') {
-        path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
-        if (index === 0) path.innerHTML = getCharacter()
-      } else {
+        if (tile.decoration) {
+          path.classList = `vfy-path ${tile.decoration}`
+        } else {
+          path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
+          if (index === 0) path.innerHTML = getCharacter()
+        }
+      }
+      else {
         path.classList = 'vfy-path vfy-bg'
       }
 

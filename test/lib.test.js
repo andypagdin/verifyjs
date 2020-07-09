@@ -1,4 +1,4 @@
-import { flip, getCell, isLastColumn, getMoves, createModal } from '../src/lib'
+import { flip, getCell, isLastColumn, getMoves, createModal, getEmptyTiles } from '../src/lib'
 
 describe('library helpers', () => {
   it ('flips direction', () => {
@@ -41,6 +41,15 @@ describe('library helpers', () => {
 
     createModal()
     expect(document.body.innerHTML).toEqual(modal)
+  })
+
+  it('gets empty tiles array', () => {
+    const tiles = [[0, {"previous":"down","next":"right"}, {"previous":"left","next":"right"}, {"previous":"left","next":"right"}, {"previous":"left","next":"right"}, {"previous":"left","next":"down"}],
+      [0, {"previous":"down","next":"up"}, 0, 0, 0, {"previous":"up"}],
+      [0, {"previous":"down","next":"up"}, 0, 0, 0, 0],
+      [{"next":"right"}, {"previous":"left","next":"up"}, 0, 0, 0, 0]]
+    const expectedResult = [[0,0],[1,0],[1,2],[1,3],[1,4],[2,0],[2,2],[2,3],[2,4],[2,5],[3,2],[3,3],[3,4],[3,5]]
+    expect(getEmptyTiles(tiles)).toEqual(expectedResult)
   })
 })
 
