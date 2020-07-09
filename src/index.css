@@ -345,6 +345,22 @@
   background-image: url('../assets/large-rock.png');
 }
 
+.vfy-weeds-one {
+  background-image: url('../assets/weeds-one.png');
+}
+
+.vfy-weeds-two {
+  background-image: url('../assets/weeds-two.png');
+}
+
+.vfy-weeds-three {
+  background-image: url('../assets/weeds-three.png');
+}
+
+.vfy-weeds-four {
+  background-image: url('../assets/weeds-four.png');
+}
+
 /* Results check or cross */
 .vfy-result-label {
   margin: 0 auto;
