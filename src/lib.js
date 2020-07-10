@@ -3,14 +3,51 @@ const getRandomNum = max => {
 }
 
 const getCharacter = () => {
-  return '<div class="vfy-char">👨</div>'
+  return '<div class="vfy-char"></div>'
 }
+
+export const convertToOneDimentional = (board, y, x) => x + (board[0].length * y)
 
 const updateTile = (board, y, x, empty = false) => {
   const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
-  const index = x + (board[0].length * y) // map 2D to 1D index
+  const index = convertToOneDimentional(board, y, x)
   const content = empty ? '' : getCharacter()
   tiles[index].getElementsByClassName('vfy-path')[0].innerHTML = content
+}
+
+const difference = (a, b) => Math.abs(a - b)
+
+const animateToPosition = (board, from, to, direction) => {
+  let animationClass
+
+  switch (direction) {
+    case 'right': animationClass = 'left'; break
+    case 'up': animationClass = 'top'; break
+    case 'down': animationClass = 'top'; break
+  }
+
+  let moveCount = (from[0] !== to[0])
+    ? difference(from[0], to[0])
+    : difference(from[1], to[1])
+  let offset = moveCount * 48
+
+  const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
+  const index = convertToOneDimentional(board, from[0], from[1])
+  const char = tiles[index].getElementsByClassName('vfy-char')[0]
+
+  char.classList.add('vfy-char-run')
+  char.style[animationClass] = (direction === 'up') ? `-${offset}px` : `${offset}px`
+
+  setTimeout(() => {
+    updateTile(board, from[0], from[1], true)
+    updateTile(board, to[0], to[1])
+  }, 1000)
+}
+
+const animationInProgress = (board, currentPosition) => {
+  const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
+  const index = convertToOneDimentional(board, currentPosition[0], currentPosition[1])
+  return !tiles[index].getElementsByClassName('vfy-char')[0]
 }
 
 export const getEmptyTiles = tiles => {
@@ -85,6 +122,8 @@ export const move = (direction, board, currentPosition, endPosition) => {
   let y = currentPosition[0]
   let x = currentPosition[1]
 
+  if (animationInProgress(board, currentPosition)) return currentPosition
+
   let initialPosition = [y, x]
   let currentTile = board[y][x]
 
@@ -113,8 +152,6 @@ export const move = (direction, board, currentPosition, endPosition) => {
       if (currentTile.next !== direction) {
         keepMoving = false
         currentPosition = [y, x]
-        updateTile(board, initialPosition[0], initialPosition[1], true)
-        updateTile(board, y, x)
       }
     }
   } else {
@@ -123,6 +160,8 @@ export const move = (direction, board, currentPosition, endPosition) => {
 
   if (currentPosition[0] === endPosition[0] && currentPosition[1] === endPosition[1]) {
     return { message: 'Verification successful', result: 1 }
+  } else {
+    animateToPosition(board, initialPosition, [y, x], direction)
   }
 
   return currentPosition
@@ -274,7 +313,9 @@ export const createModal = () => {
   $('body').appendChild(node)
 }
 
-export const showResult = result => {
+export const showResult = (result, handleControlClick) => {
+  $('.vfy-controls').removeEventListener('click', handleControlClick, true)
+
   const faCheck = {
     icon:
       '<svg width="60" height="60" viewBox="0 0 512 512">' +

@@ -293,12 +293,28 @@
 .vfy-path {
   height: 100%;
   width: 100%;
-  text-align: center;
   background-size: cover;
 }
 
 .vfy-char {
-  padding: 10px;
+  width: 65%;
+  height: 62%;
+  position: relative;
+  background-image: url('../assets/idle.gif');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  left: 0;
+  top: 0;
+}
+
+.vfy-char-run {
+  background-image: url('../assets/run.gif');
+  transition: left 1s, top 1s;
+  -webkit-transition: left 1s, top 1s;
+  -moz-transition: left 1s, top 1s;
+  -ms-transition: left 1s, top 1s;
+  -o-transition: left 1s, top 1s;
 }
 
 .vfy-leftvfy-right, .vfy-right {
