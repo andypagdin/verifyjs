@@ -31,10 +31,10 @@ export const transitionToPosition = (board, from, to, direction) => {
   char.classList.add('vfy-char-run')
   char.style[animationClass] = (direction === 'up') ? `-${offset}px` : `${offset}px`
 
-  setTimeout(() => {
+  char.ontransitionend = () => {
     updateTile(board, from[0], from[1], true)
     updateTile(board, to[0], to[1])
-  }, 1000)
+  }
 }
 
 export const transitionInProgress = (board, currentPosition) => {

@@ -405,7 +405,7 @@
   transform: scale(0);
   color: white;
   -webkit-text-stroke: 0;
-  animation: icon .3s cubic-bezier(1.000, 0.008, 0.565, 1.650) .1s 1 forwards;
+  animation: icon .5s cubic-bezier(1.000, 0.008, 0.565, 1.650) .1s 1 forwards;
 }
 
 @keyframes icon {
