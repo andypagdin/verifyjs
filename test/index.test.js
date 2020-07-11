@@ -1,5 +1,6 @@
 import * as Verify from '../src/index'
 import * as lib from '../src/lib'
+import * as transition from '../src/transition'
 
 const $ = lib.$
 const successMessage = 'Verification successful'
@@ -46,7 +47,11 @@ describe('Verify action DOM', () => {
 })
 
 describe('Verify action results', () => {
-  afterEach(() => {
+  beforeEach(() => {
+    jest.spyOn(transition, 'transitionToPosition').mockImplementation((board, from, to) => {
+      transition.updateTile(board, from[0], from[1], true)
+      transition.updateTile(board, to[0], to[1])
+    })
     document.body.innerHTML = ''
   })
 

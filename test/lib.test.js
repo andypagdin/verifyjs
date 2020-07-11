@@ -1,4 +1,5 @@
-import { flip, getCell, isLastColumn, getMoves, createModal, getEmptyTiles, convertToOneDimentional } from '../src/lib'
+import { flip, getCell, isLastColumn, getMoves, createModal, getEmptyTiles } from '../src/lib'
+import { convertToOneDimentional } from '../src/transition'
 
 describe('library helpers', () => {
   it ('flips direction', () => {
