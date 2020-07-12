@@ -1,7 +1,7 @@
 import { $, getCharacter } from './lib'
 
 
-const difference = (a, b) => Math.abs(a - b)
+export const difference = (a, b) => Math.abs(a - b)
 
 export const updateTile = (board, y, x, empty = false) => {
   const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')

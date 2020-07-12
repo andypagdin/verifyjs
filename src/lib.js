@@ -302,9 +302,7 @@ export const showResult = (result, handleControlClick) => {
 
   $('#vfy-board').innerHTML = marker
 
-  $('.icon').onanimationend = () => {
-    removeModal()
-  }
+  $('.icon').onanimationend = () => removeModal()
 }
 
 export const removeModal = () => {
