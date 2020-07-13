@@ -1,4 +1,4 @@
-import { updateTile, transitionInProgress, transitionToPosition, difference } from '../src/transition'
+import { updateTile, transitionToPosition, difference } from '../src/transition'
 import { $, createModal, generateBoardMarkup, getCharacter } from '../src/lib'
 
 let board

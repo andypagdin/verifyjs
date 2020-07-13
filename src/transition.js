@@ -1,13 +1,19 @@
 import { $, getCharacter } from './lib'
 
+const getTileAtIndex = (board, position) => {
+  const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
+  const index = convertToOneDimentional(board, position[0], position[1])
+  return tiles[index]
+}
 
 export const difference = (a, b) => Math.abs(a - b)
 
+export const convertToOneDimentional = (board, y, x) => x + (board[0].length * y)
+
 export const updateTile = (board, y, x, empty = false) => {
-  const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
-  const index = convertToOneDimentional(board, y, x)
+  const tile = getTileAtIndex(board, [y, x])
   const content = empty ? '' : getCharacter()
-  tiles[index].getElementsByClassName('vfy-path')[0].innerHTML = content
+  tile.getElementsByClassName('vfy-path')[0].innerHTML = content
 }
 
 export const transitionToPosition = (board, from, to, direction) => {
@@ -19,17 +25,14 @@ export const transitionToPosition = (board, from, to, direction) => {
     case 'down': animationClass = 'top'; break
   }
 
-  let moveCount = (from[0] !== to[0])
-    ? difference(from[0], to[0])
-    : difference(from[1], to[1])
-  let offset = moveCount * 48
+  const moveCount = from[0] !== to[0] ? difference(from[0], to[0]) : difference(from[1], to[1])
+  const offset = moveCount * 48
 
-  const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
-  const index = convertToOneDimentional(board, from[0], from[1])
-  const char = tiles[index].getElementsByClassName('vfy-char')[0]
+  const tile = getTileAtIndex(board, from)
+  const char = tile.getElementsByClassName('vfy-char')[0]
 
   char.classList.add('vfy-char-run')
-  char.style[animationClass] = (direction === 'up') ? `-${offset}px` : `${offset}px`
+  char.style[animationClass] = direction === 'up' ? `-${offset}px` : `${offset}px`
 
   char.ontransitionend = () => {
     updateTile(board, from[0], from[1], true)
@@ -38,9 +41,6 @@ export const transitionToPosition = (board, from, to, direction) => {
 }
 
 export const transitionInProgress = (board, currentPosition) => {
-  const tiles = $('#vfy-board').getElementsByClassName('vfy-tile')
-  const index = convertToOneDimentional(board, currentPosition[0], currentPosition[1])
-  return !tiles[index].getElementsByClassName('vfy-char')[0]
+  const tile = getTileAtIndex(board, currentPosition)
+  return !tile.getElementsByClassName('vfy-char')[0]
 }
-
-export const convertToOneDimentional = (board, y, x) => x + (board[0].length * y)

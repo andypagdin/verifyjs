@@ -1,15 +1,18 @@
 import { transitionToPosition, transitionInProgress } from './transition'
 
-const getRandomNum = max => {
-  return Math.floor(Math.random() * max)
-}
+const getRandomNum = max => Math.floor(Math.random() * max)
 
-export const getCharacter = () => {
-  return '<div class="vfy-char"></div>'
-}
+export const getCharacter = () => '<div class="vfy-char"></div>'
+
+export const isLastColumn = (col, max) => col === max
+
+export const $ = selector => document.querySelector(selector)
+
+export const removeModal = () => $('.vfy-wrapper').remove()
 
 export const getEmptyTiles = tiles => {
   let emptyTiles = []
+
   tiles.forEach((row, rowIndex) => {
     row.forEach((tile, tileIndex) => {
       if (typeof(tile) === 'number') {
@@ -17,6 +20,7 @@ export const getEmptyTiles = tiles => {
       }
     })
   })
+
   return emptyTiles
 }
 
@@ -65,8 +69,7 @@ export const generateBoardMarkup = tiles => {
           path.classList = `vfy-path ${tile.previous ? 'vfy-' + tile.previous : ''}${tile.next ? 'vfy-' + tile.next : ''}`
           if (index === 0) path.innerHTML = getCharacter()
         }
-      }
-      else {
+      } else {
         path.classList = 'vfy-path vfy-bg'
       }
 
@@ -142,13 +145,11 @@ export const getDirection = e => {
 }
 
 export const flip = val => {
-  let switched
   switch(val) {
-    case 'up': switched = 'down'; break
-    case 'down': switched = 'up'; break
-    case 'right': switched = 'left'; break
+    case 'up': return 'down'
+    case 'down': return 'up'
+    case 'right': return 'left'
   }
-  return switched
 }
 
 export const getCell = (matrix, y, x) => {
@@ -162,10 +163,6 @@ export const getCell = (matrix, y, x) => {
   }
 
   return value
-}
-
-export const isLastColumn = (col, max) => {
-  return col === max ? true : false
 }
 
 export const getMoves = (matrix, y, x, destinationY) => {
@@ -241,10 +238,6 @@ export const generateBoard = () => {
   }
 }
 
-export const $ = selector => {
-  return document.querySelector(selector)
-}
-
 export const createModal = () => {
   const close =
     '<svg viewBox="0 0 1024 1024" width="30" height="30">' +
@@ -303,8 +296,4 @@ export const showResult = (result, handleControlClick) => {
   $('#vfy-board').innerHTML = marker
 
   $('.icon').onanimationend = () => removeModal()
-}
-
-export const removeModal = () => {
-  $('.vfy-wrapper').remove()
 }
