@@ -2,7 +2,7 @@ import { transitionToPosition, transitionInProgress } from './transition'
 
 const getRandomNum = max => Math.floor(Math.random() * max)
 
-export const getCharacter = () => '<div class="vfy-char"></div>'
+export const getCharacter = () => '<div class="vfy-char-wrapper"><div class="vfy-char"></div></div>'
 
 export const isLastColumn = (col, max) => col === max
 

@@ -30,11 +30,12 @@ export const transitionToPosition = (board, from, to, direction) => {
 
   const tile = getTileAtIndex(board, from)
   const char = tile.getElementsByClassName('vfy-char')[0]
+  const charWrapper = tile.getElementsByClassName('vfy-char-wrapper')[0]
 
   char.classList.add('vfy-char-run')
-  char.style[animationClass] = direction === 'up' ? `-${offset}px` : `${offset}px`
+  charWrapper.style[animationClass] = direction === 'up' ? `-${offset}px` : `${offset}px`
 
-  char.ontransitionend = () => {
+  charWrapper.ontransitionend = () => {
     updateTile(board, from[0], from[1], true)
     updateTile(board, to[0], to[1])
   }
