@@ -26,7 +26,7 @@ export const transitionToPosition = (board, from, to, direction) => {
   }
 
   const moveCount = from[0] !== to[0] ? difference(from[0], to[0]) : difference(from[1], to[1])
-  const offset = moveCount * 48
+  const offset = moveCount * $('#vfy-board').getElementsByClassName('vfy-tile')[0].offsetWidth
 
   const tile = getTileAtIndex(board, from)
   const char = tile.getElementsByClassName('vfy-char')[0]

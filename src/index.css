@@ -453,3 +453,41 @@
     opacity: 1;
   }
 }
+
+/* Responsive */
+/* Mobile */
+@media only screen and (max-width: 550px) {
+  #vfy-container {
+    width: 339px;
+    height: 160px;
+  }
+
+  .vfy-tile {
+    width: 40px;
+    height: 40px;
+  }
+
+  .vfy-char {
+    background-size: 16px 31px;
+    left: 12px;
+    bottom: 7px;
+  }
+}
+
+/* Small Mobile */
+@media only screen and (max-width: 360px) {
+  #vfy-container {
+    width: 309px;
+    height: 144px;
+  }
+
+  .vfy-tile {
+    width: 36px;
+    height: 36px;
+  }
+
+  .vfy-char {
+    left: 10px;
+    bottom: 8px;
+  }
+}
