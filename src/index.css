@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   width: 405px;
-  height: 192px;
+  height: 194px;
   background: linear-gradient(90deg, #c2c2c2 28%, #78a0aa 0%);
   box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
@@ -294,6 +294,7 @@
   height: 100%;
   width: 100%;
   background-size: cover;
+  image-rendering: pixelated;
 }
 .vfy-char-wrapper {
   width: 100%;
@@ -467,7 +468,7 @@
 @media only screen and (max-width: 550px) {
   #vfy-container {
     width: 339px;
-    height: 160px;
+    height: 162px;
   }
 
   .vfy-tile {
