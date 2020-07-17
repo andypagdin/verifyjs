@@ -366,6 +366,14 @@
   background-image: url('../assets/large-rock.png');
 }
 
+.vfy-large-rock-one {
+  background-image: url('../assets/large-rock-one.png');
+}
+
+.vfy-large-rock-two {
+  background-image: url('../assets/large-rock-two.png');
+}
+
 .vfy-weeds-one {
   background-image: url('../assets/weeds-one.png');
 }

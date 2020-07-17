@@ -39,7 +39,8 @@ export const generateBoardMarkup = tiles => {
   const emptyTiles = getEmptyTiles(tiles)
 
   const decorations = [
-    { name: 'vfy-large-rock', count: 3 },
+    { name: 'vfy-large-rock-one', count: 2 },
+    { name: 'vfy-large-rock-two', count: 1 },
     { name: 'vfy-weeds-one', count: 1 },
     { name: 'vfy-weeds-two', count: 2 },
     { name: 'vfy-weeds-three', count: 2 },
