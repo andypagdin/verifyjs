@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "webpack --config webpack.config.js",
-    "start": "webpack-dev-server",
+    "build": "webpack --config webpack.config.js --mode production",
+    "start": "webpack-dev-server --mode development",
     "lint": "eslint \"**/*.js\""
   },
   "author": "",
