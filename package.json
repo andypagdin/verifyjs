@@ -1,6 +1,6 @@
 {
   "name": "@andypagdin/verify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/verify.js",
   "files": [
     "dist"
