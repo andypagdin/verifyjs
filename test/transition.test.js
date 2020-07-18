@@ -42,8 +42,9 @@ describe('transition module', () => {
     transitionToPosition(board, [1, 0], [1, 1], 'right')
 
     let char = $('.vfy-char')
+    let charWrapper = $('.vfy-char-wrapper')
 
     expect(char.classList).toContain('vfy-char-run')
-    expect(char.style.left).toEqual('48px')
+    expect(charWrapper.style.left).toEqual('0px')
   })
 })
