@@ -1,0 +1,46 @@
+version: 2.1
+defaults: &defaults
+  working_directory: ~/repo
+  executor:
+      name: node/default
+orbs:
+  node: circleci/node@1.1.6
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm run test
+            - run: npm run lint
+            - persist_to_workspace:
+                root: ~/repo
+                paths: .
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run: npm run build
+      - run: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run: npm publish
+workflows:
+    version: 2
+    test-deploy:
+      jobs:
+        - test:
+            filters:
+              tags:
+                only: /^v.*/
+              branches:
+                only: master
+        - deploy:
+            requires:
+                - test
+            filters:
+              tags:
+                only: /^v.*/
+              branches:
+                only: master
