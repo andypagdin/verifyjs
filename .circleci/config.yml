@@ -30,17 +30,17 @@ workflows:
     version: 2
     test-deploy:
       jobs:
-        - test
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              only: master
-        - deploy
-          requires:
-              - test
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              only: master
+        - test:
+            filters:
+              tags:
+                only: /^v.*/
+              branches:
+                only: master
+        - deploy:
+            requires:
+                - test
+            filters:
+              tags:
+                only: /^v.*/
+              branches:
+                only: master
