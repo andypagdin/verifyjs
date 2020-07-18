@@ -1,9 +1,10 @@
 {
-  "name": "verify-js",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@andypagdin/verify",
+  "version": "0.0.1",
   "main": "dist/verify.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -39,5 +40,15 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/file-mock.js",
       "\\.(css|less)$": "<rootDir>/mocks/style-mock.js"
     }
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andypagdin/verifyjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andypagdin/verifyjs/issues"
+  },
+  "homepage": "https://github.com/andypagdin/verifyjs#readme",
+  "description": ""
 }
